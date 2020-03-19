@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int HealthPoint = 100;
-
+    public int Damage = 30;
     
     void Start()
     {
@@ -24,4 +24,10 @@ public class Enemy : MonoBehaviour
     {
         HealthPoint -= damage;
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Destroy(this.gameObject);
+      // HealthPoint -= Damage;
+    }
+   
 }
