@@ -16,10 +16,15 @@ public class PlayerMovements : MonoBehaviour
     private Vector3 Velocity = Vector3.zero;
     public float MovementSmoothing = .05f;
     public float jumpVelocity = 400f;
+    public float dashSpeed;
+    private float dashTime;
+    public float startDashTime;
+    private int direction;
 
     void Start()
     {
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
+        dashTime = startDashTime;
     }
 
     void FixedUpdate()
@@ -57,6 +62,48 @@ public class PlayerMovements : MonoBehaviour
                 rigidbody2d.AddForce(new Vector2(0f, jumpVelocity));
             }
         }
+
+        if (direction == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                direction = 1;
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                direction = 2;
+            }
+        }
+        else
+        {
+            if (dashTime <= 0)
+            {
+                direction = 0;
+                dashTime = startDashTime;
+                rigidbody2d.velocity = Vector3.zero;
+            }
+            else
+            {
+                dashTime -= Time.deltaTime;
+            }
+            if (direction == 1)
+            {
+                rigidbody2d.velocity = Vector3.left * dashSpeed;
+            }
+            else if (direction == 2)
+            {
+                rigidbody2d.velocity = Vector3.right * dashSpeed;
+            }
+
+        }
+
+        
+        if (Input.GetKeyDown("g"))
+        {
+            animator.SetTrigger("isDancing");
+        }
+        
+
     }
     private void Flip()
     {

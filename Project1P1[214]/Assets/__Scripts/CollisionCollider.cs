@@ -5,7 +5,7 @@ using UnityEngine;
 public class CollisionCollider : MonoBehaviour
 {
 
-    public HealthBar healthbar;
+    public Health healthbar;
     public int dashDamage = 50;
 
 

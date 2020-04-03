@@ -6,47 +6,66 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public static int maxHealth = 100;
+    public static int currentHealth;
     public LayerMask damaged;
     public Transform damageCheck;
     public float DamageRadius = .2f;
-    public int damage = 5;
-    public HealthBar healthBar;
+    public int damage = 20;
+    //public int heal = 15;
+    public Health healthBar;
+    public GameObject gameOverText, mainMenuButton, bloodSplash;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameOverText.SetActive(false);
+        mainMenuButton.SetActive(false);
+
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+       
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Collider2D[] colliderD = Physics2D.OverlapCircleAll(damageCheck.position, DamageRadius, damaged);
-        for (int i = 0; i < colliderD.Length; i++)
-        {
-            if (colliderD[i].gameObject == gameObject)
-            {
-                TakeDamage(damage);
-            }
-        }
-        if (currentHealth == 0)
-        {
-            Invoke("Restart", 3.0f);
-        }
-    }
+    
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-
-        healthBar.SetHealth(currentHealth);
-
     }
+    /*public void Healling(int heal)
+    {
+        currentHealth += heal;
+    }*/
     void Restart()
     {
         //restarting game
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Coins"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag.Equals("Enemy"))
+        {
+            TakeDamage(damage); 
+        }
+        /*if (col.gameObject.tag.Equals("HealthPickup"))
+        {
+            Destroy(col.gameObject);
+            Healling(heal);
+        }*/
+        if (currentHealth <= 0)
+        {
+            gameOverText.SetActive(true);
+            mainMenuButton.SetActive(true);
+            Instantiate(bloodSplash, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
+        }
     }
 }

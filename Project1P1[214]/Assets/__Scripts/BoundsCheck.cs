@@ -22,7 +22,7 @@ public class BoundsCheck : MonoBehaviour
         camWidth = camHeight * Camera.main.aspect;
 
     }
-    void LateUpdate()
+    public virtual void LateUpdate()
     {
         Vector3 pos = transform.position;
         isOnScreen = true;
@@ -56,13 +56,5 @@ public class BoundsCheck : MonoBehaviour
         }
 
     }
-    void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) return;
-        Vector3 boundSize = new Vector3(camWidth * 2, camHeight * 2, 0.1f);
-        Gizmos.DrawWireCube(Vector3.zero, boundSize);
-
-    }
-
 
 }

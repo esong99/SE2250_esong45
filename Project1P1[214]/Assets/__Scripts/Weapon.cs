@@ -5,9 +5,11 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public Transform firePoint;
-    public int damage = 40;
+    //public static int Weaponamage;
+    public static int damage = 40;
     //public GameObject impactEffect;
     public LineRenderer lineRenderer;
+
 
     // Update is called once per frame
     void Update()

@@ -8,7 +8,8 @@ public class StoneSlateAttack : MonoBehaviour
     public int SelfDamage = 10;
     public int EnemyDamage = 30;
     public LayerMask WhatIsEnemy;
-    public GameObject Moses;
+    //public GameObject Moses;
+    PlayerMoses currentHealth;
 
     // Update is called once per frame
     void Update()
@@ -21,7 +22,7 @@ public class StoneSlateAttack : MonoBehaviour
             GameObject closestObject = null;
             foreach (GameObject obj in objectsWithTag)
             {
-                if (closestObject==null)
+                if (closestObject == null)
                 {
                     closestObject = obj;
                 }
@@ -32,7 +33,7 @@ public class StoneSlateAttack : MonoBehaviour
                 }
             }
 
-            Moses.GetComponent<PlayerMoses>().currentHealth -= SelfDamage;
+            PlayerMoses.currentHealth -= SelfDamage;
 
             closestObject.GetComponent<Enemy>().HealthPoint -= EnemyDamage;
         }

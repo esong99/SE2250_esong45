@@ -15,9 +15,10 @@ public class NextLevel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Medjed")
+        if(collision.gameObject.name == "Medjed" || collision.gameObject.name == "Moses")
         {
-           // DontDestroyOnLoad(collision.gameObject);
+            // DontDestroyOnLoad(collision.gameObject);
+           
             SceneManager.LoadScene(nextLevel);
         }
        

@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int HealthPoint = 100;
+    public int HealthPoint = 100;       //Initializing the enemy's health and his damage upon attack by player.
     public int Damage = 30;
     
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if(HealthPoint <= 0)
         {
-            gameObject.SetActive(false);
+            ScoreScript.scoreValue += 10;       //If the enemy is killed, the score value will increase by 10.
+            gameObject.SetActive(false);        //The game object will disappear when the enemy's health is less than 0.
+
         }
     }
     public void TakeDamage(int damage)
     {
-        HealthPoint -= damage;
+        HealthPoint -= damage;                      //This function reduces the health of the enemy by the damage amount set.
     }
     void OnTriggerEnter2D(Collider2D other)
     {

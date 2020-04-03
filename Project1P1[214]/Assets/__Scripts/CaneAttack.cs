@@ -7,7 +7,7 @@ public class CaneAttack : MonoBehaviour
     public Transform attackPos;
     public LayerMask WhatIsEnemies;
     public float attackRange;
-    public int damage;
+    public static int damage = 40;
     public Animator animator;
 
     // Start is called before the first frame update
